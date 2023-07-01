@@ -58,18 +58,11 @@ class BlogController extends Controller
                 'short_text' => $request->short_text,
                 'body' => $request->body,
                 'image_alt' => $request->image_alt,
-                'image' => (isset($request->image)?file_store($request->image, 'assets/uploads/blogs/images/','photo_'):null),
-                'banner' => (isset($request->banner)?file_store($request->banner, 'assets/uploads/blogs/images/banners/','photo_'):null)
+                'image' => (isset($request->image)?file_store($request->image, 'assets/uploads/photos/blogs_images/','photo_'):null),
+                'banner' => (isset($request->banner)?file_store($request->banner, 'assets/uploads/photos/blogs_banners/','photo_'):null)
             ]);
 
-            if (isset($request->tags)){
-                foreach ($request->tags as $tag){
-                    $bt = BlogTag::create([
-                        'blog_id' => $blog->id,
-                        'tag_id' => $tag
-                    ]);
-                }
-            }
+            $blog->tags()->sync($request->tags);
 
             return redirect()->route('blogs.index')->with('flash_message', 'با موفقیت ثبت شد');
         }catch (\Exception $e){
@@ -97,7 +90,7 @@ class BlogController extends Controller
         $categories = BlogCategory::all();
         $tags = Tag::all();
 
-        $blog_tags = $blog->tags->pluck('tag_id')->toArray();
+        $blog_tags = $blog->tags->pluck('id')->toArray();
 
         return view('blogs::edit', compact('blog', 'categories', 'tags', 'blog_tags'));
     }
@@ -121,30 +114,18 @@ class BlogController extends Controller
                 if ($blog->image){
                     File::delete($blog->image);
                 }
-                $blog->image = file_store($request->image, 'assets/uploads/blogs/images/','photo_');
+                $blog->image = file_store($request->image, 'assets/uploads/photos/blogs_images/','photo_');
             }
             if (isset($request->banner)) {
                 if ($blog->banner){
                     File::delete($blog->banner);
                 }
-                $blog->banner = file_store($request->banner, 'assets/uploads/blogs/images/banners/','photo_');
+                $blog->banner = file_store($request->banner, 'assets/uploads/photos/blogs_banners/','photo_');
             }
 
             $blog->save();
 
-            $deleted = BlogTag::where('blog_id', $blog->id)->whereNotIn('tag_id', $request->tags)->delete();
-
-            if (isset($request->tags)){
-                foreach ($request->tags as $tag){
-                    $old = BlogTag::where('blog_id', $blog->id)->where('tag_id', $tag)->first();
-                    if (!$old) {
-                        $bt = BlogTag::create([
-                            'blog_id' => $blog->id,
-                            'tag_id' => $tag
-                        ]);
-                    }
-                }
-            }
+            $blog->tags()->sync($request->tags);
 
             return redirect()->route('blogs.index')->with('flash_message', 'با موفقیت بروزرسانی شد');
         }catch (\Exception $e){

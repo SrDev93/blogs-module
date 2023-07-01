@@ -2,9 +2,10 @@
 
 namespace Modules\Blogs\Entities;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Modules\Account\Entities\User;
 use Modules\Base\Entities\Comment;
 use Modules\Base\Entities\Visit;
 
@@ -26,7 +27,7 @@ class Blog extends Model
 
     public function comment()
     {
-        return $this->morphMany(Comment::class, 'comments')->where('status', 1);
+        return $this->morphMany(Comment::class, 'comments')->where('status', 1)->whereNull('parent_id');
     }
 
     public function visits() {
@@ -34,7 +35,7 @@ class Blog extends Model
     }
 
     public function tags() {
-        return $this->hasMany(BlogTag::class, 'blog_id', 'id');
+        return $this->belongsToMany(Tag::class, 'blog_tags', 'blog_id','tag_id');
     }
 
     protected static function newFactory()

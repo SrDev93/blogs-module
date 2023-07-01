@@ -5,6 +5,7 @@ namespace Modules\Blogs\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\File;
 use Modules\Blogs\Entities\Tag;
 
 class TagController extends Controller
@@ -47,6 +48,7 @@ class TagController extends Controller
                 'page_title' => $request->page_title,
                 'meta_keywords' => $request->meta_keywords,
                 'meta_description' => $request->meta_description,
+                'banner' => (isset($request->banner)?file_store($request->banner, 'assets/uploads/photos/tag_banners/', 'photo_'):null),
             ]);
 
             return redirect()->route('tags.index')->with('flash_message', 'با موفقیت ثبت شد');
@@ -89,6 +91,14 @@ class TagController extends Controller
             $tag->page_title = $request->page_title;
             $tag->meta_keywords = $request->meta_keywords;
             $tag->meta_description = $request->meta_description;
+
+            if (isset($request->banner)) {
+                if ($tag->banner){
+                    File::delete($tag->banner);
+                }
+                $tag->banner = file_store($request->banner, 'assets/uploads/photos/tag_banners/', 'photo_');
+            }
+
             $tag->save();
 
             return redirect()->route('tags.index')->with('flash_message', 'با موفقیت انجام شد');

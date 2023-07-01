@@ -45,7 +45,13 @@
                                 <input type="text" name="meta_description" class="form-control" value="{{ old('meta_description') }}">
                                 <div class="invalid-feedback">لطفا توضیحات سئو را وارد کنید</div>
                             </div>
+                            <div class="col-md-12">
+                                <label for="banner" class="form-label">بنر</label>
+                                <input type="file" name="banner" class="form-control" accept="image/*">
+                                <div class="invalid-feedback">لطفا بنر را انتخاب کنید</div>
+                            </div>
 
+                            <div class="row-divider"></div>
                             <div class="col-12">
                                 <button class="btn btn-primary" type="submit">ارسال فرم</button>
                                 @csrf

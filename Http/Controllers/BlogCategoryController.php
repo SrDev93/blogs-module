@@ -5,6 +5,7 @@ namespace Modules\Blogs\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\File;
 use Modules\Blogs\Entities\BlogCategory;
 
 class BlogCategoryController extends Controller
@@ -39,7 +40,8 @@ class BlogCategoryController extends Controller
         try {
             $ac = BlogCategory::create([
                 'name' => $request->name,
-                'slug' => $request->slug
+                'slug' => $request->slug,
+                'banner' => (isset($request->banner)?file_store($request->banner, 'assets/uploads/photos/blog_category_banner/', 'photo_'):null)
             ]);
 
             return redirect()->route('BlogCategory.index')->with('flash_message', 'با موفقیت ثبت شد');
@@ -79,6 +81,14 @@ class BlogCategoryController extends Controller
         try {
             $BlogCategory->name = $request->name;
             $BlogCategory->slug = $request->slug;
+
+            if (isset($request->banner)) {
+                if ($BlogCategory->banner){
+                    File::delete($BlogCategory->banner);
+                }
+                $BlogCategory->banner = file_store($request->banner, 'assets/uploads/photos/blog_category_banner/', 'photo_');
+            }
+
             $BlogCategory->save();
 
             return redirect()->route('BlogCategory.index')->with('flash_message', 'بروزرسانی با موفقیت انجام شد');

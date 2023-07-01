@@ -46,6 +46,20 @@
                                 <div class="invalid-feedback">لطفا توضیحات سئو را وارد کنید</div>
                             </div>
 
+                            <div class="col-md-11">
+                                <label for="banner" class="form-label">بنر</label>
+                                <input type="file" name="banner" class="form-control" accept="image/*">
+                                <div class="invalid-feedback">لطفا بنر را انتخاب کنید</div>
+                            </div>
+                            <div class="col-md-1">
+                                @if($tag->banner)
+                                    <label for="banner" class="form-label">بنر</label>
+                                    <img src="{{ url($tag->banner) }}" style="max-width: 100%;">
+                                @endif
+                            </div>
+
+                            <div class="row-divider"></div>
+
                             <div class="col-12">
                                 <button class="btn btn-primary" type="submit">بروزرسانی</button>
                                 @csrf

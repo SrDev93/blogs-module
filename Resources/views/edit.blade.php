@@ -87,8 +87,8 @@
                             </div>
                             <div class="col-md-1">
                                 @if($blog->banner)
-                                    <label for="banner" class="form-label">تصویر فعلی</label>
-                                    <img src="{{ url($blog->banner) }}" style="max-width: 50%;">
+                                    <label for="banner" class="form-label">بنر فعلی</label>
+                                    <img src="{{ url($blog->banner) }}" style="max-width: 100%;">
                                 @endif
                             </div>
 

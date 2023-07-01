@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('')->group(function() {
+Route::prefix('admin')->group(function() {
     Route::resource('BlogCategory', 'BlogCategoryController');
     Route::post('BlogCategory-sort', 'BlogCategoryController@sort_item')->name('BlogCategory-sort');
 
