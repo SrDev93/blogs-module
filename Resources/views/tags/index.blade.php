@@ -28,7 +28,7 @@
                                 <tbody>
                                 @foreach($items as $item)
                                     <tr>
-                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->title }}</td>
                                         <td>
                                             <a href="{{ route('tags.edit', $item->id) }}" class="btn btn-primary fs-14 text-white edit-icn" title="ویرایش">
                                                 <i class="fe fe-edit"></i>

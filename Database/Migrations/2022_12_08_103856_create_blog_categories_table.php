@@ -17,9 +17,14 @@ return new class extends Migration
             $table->id();
             $table->integer('sort_id')->default(0);
             $table->bigInteger('parent_id')->unsigned()->nullable();
-            $table->string('name')->nullable();
-            $table->string('slug')->nullable();
             $table->string('banner')->nullable();
+            $table->string('title')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('page_title')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->string('meta_description', 512)->nullable();
+            $table->string('canonical', 512)->nullable();
+            $table->text('schema')->nullable();
             $table->timestamps();
         });
     }

@@ -29,7 +29,7 @@
                                 <tbody>
                                 @foreach($items as $item)
                                     <tr>
-                                        <td>@if($item->category) {{ $item->category->name }} @endif</td>
+                                        <td>{{ $item->category?->title }}</td>
                                         <td>{{ $item->title }}</td>
                                         <td>
                                             <a href="{{ route('blogs.edit', $item->id) }}" class="btn btn-primary fs-14 text-white edit-icn" title="ویرایش">

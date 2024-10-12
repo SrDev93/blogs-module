@@ -55,9 +55,15 @@ class BlogController extends Controller
                 'category_id' => $request->category_id,
                 'title' => $request->title,
                 'slug' => $request->slug,
-                'short_text' => $request->short_text,
+//                'short_text' => $request->short_text,
                 'body' => $request->body,
                 'image_alt' => $request->image_alt,
+                'page_title' => $request->page_title,
+                'meta_keywords' => $request->meta_keywords,
+                'meta_description' => $request->meta_description,
+                'canonical' => $request->canonical,
+                'schema' => $request->schema,
+                'small_image' => (isset($request->small_image)?file_store($request->small_image, 'assets/uploads/photos/blogs_images/','photo_'):null),
                 'image' => (isset($request->image)?file_store($request->image, 'assets/uploads/photos/blogs_images/','photo_'):null),
                 'banner' => (isset($request->banner)?file_store($request->banner, 'assets/uploads/photos/blogs_banners/','photo_'):null)
             ]);
@@ -107,15 +113,27 @@ class BlogController extends Controller
             $blog->category_id = $request->category_id;
             $blog->title = $request->title;
             $blog->slug = $request->slug;
-            $blog->short_text = $request->short_text;
+//            $blog->short_text = $request->short_text;
             $blog->body = $request->body;
             $blog->image_alt = $request->image_alt;
+            $blog->page_title = $request->page_title;
+            $blog->meta_keywords = $request->meta_keywords;
+            $blog->meta_description = $request->meta_description;
+            $blog->canonical = $request->canonical;
+            $blog->schema = $request->schema;
             if (isset($request->image)) {
                 if ($blog->image){
                     File::delete($blog->image);
                 }
                 $blog->image = file_store($request->image, 'assets/uploads/photos/blogs_images/','photo_');
             }
+            if (isset($request->small_image)) {
+                if ($blog->small_image){
+                    File::delete($blog->small_image);
+                }
+                $blog->small_image = file_store($request->small_image, 'assets/uploads/photos/blogs_images/','photo_');
+            }
+
             if (isset($request->banner)) {
                 if ($blog->banner){
                     File::delete($blog->banner);

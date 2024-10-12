@@ -21,29 +21,14 @@
                     <div class="card-body">
                         <form action="{{ route('tags.update', $tag->id) }}" method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                             <div class="col-md-6">
-                                <label for="title" class="form-label">نام</label>
-                                <input type="text" name="name" class="form-control" id="name" required value="{{ $tag->name }}">
-                                <div class="invalid-feedback">لطفا نام را وارد کنید</div>
+                                <label for="title" class="form-label">عنوان</label>
+                                <input type="text" name="title" class="form-control" id="title" required value="{{ $tag->title }}">
+                                <div class="invalid-feedback">لطفا عنوان را وارد کنید</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="slug" class="form-label">نامک</label>
                                 <input type="text" name="slug" class="form-control" id="slug" required value="{{ $tag->slug }}">
                                 <div class="invalid-feedback">لطفا نامک را وارد کنید</div>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="page_title" class="form-label">عنوان صفحه</label>
-                                <input type="text" name="page_title" class="form-control" value="{{ $tag->page_title }}" required>
-                                <div class="invalid-feedback">لطفا عنوان صفحه را وارد کنید</div>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="meta_keywords" class="form-label">کلمات کلیدی</label>
-                                <input type="text" name="meta_keywords" class="form-control" value="{{ $tag->meta_keywords }}">
-                                <div class="invalid-feedback">لطفا کلمات کلیدی را وارد کنید</div>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="meta_description" class="form-label">توضیحات سئو</label>
-                                <input type="text" name="meta_description" class="form-control" value="{{ $tag->meta_description }}">
-                                <div class="invalid-feedback">لطفا توضیحات سئو را وارد کنید</div>
                             </div>
 
                             <div class="col-md-11">
@@ -57,6 +42,35 @@
                                     <img src="{{ url($tag->banner) }}" style="max-width: 100%;">
                                 @endif
                             </div>
+
+
+
+                            <div class="col-md-6">
+                                <label for="page_title" class="form-label">عنوان صفحه</label>
+                                <input type="text" name="page_title" class="form-control" id="page_title" value="{{ old('page_title', $tag->page_title) }}">
+                                <div class="invalid-feedback">لطفا عنوان صفحه را وارد کنید</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="meta_keywords" class="form-label">کلمات کلیدی</label>
+                                <input type="text" name="meta_keywords" class="form-control" id="meta_keywords" value="{{ old('meta_keywords', $tag->meta_keywords) }}">
+                                <div class="invalid-feedback">لطفا کلمات کلیدی را وارد کنید</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="meta_description" class="form-label">توضیحات سئو</label>
+                                <input type="text" name="meta_description" class="form-control" id="meta_description" value="{{ old('meta_description', $tag->meta_description) }}">
+                                <div class="invalid-feedback">لطفا توضیحات سئو را وارد کنید</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="canonical" class="form-label">Canonical</label>
+                                <input type="text" name="canonical" class="form-control ltr text-left" id="canonical" value="{{ old('canonical', $tag->canonical) }}">
+                                <div class="invalid-feedback">لطفا Canonical را وارد کنید</div>
+                            </div>
+                            <div class="col-md-12 mb-4">
+                                <label for="schema" class="form-label">Schema</label>
+                                <textarea type="text" name="schema" class="form-control ltr text-left" id="schema" rows="5">{{ old('schema', $tag->schema) }}</textarea>
+                                <div class="invalid-feedback">لطفا Schema را وارد کنید</div>
+                            </div>
+
 
                             <div class="row-divider"></div>
 

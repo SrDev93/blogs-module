@@ -2,7 +2,7 @@
     <ol class="dd-list">
         @foreach($category->children as $category)
             <li class="dd-item" data-id="{{ $category->id }}">
-                <div class="dd-handle">{{ $category->name }}</div>
+                <div class="dd-handle">{{ $category->title }}</div>
                 <div class="btn-inline">
 {{--                    <a class="btn btn-primary" href="{{ route('NewsCategory.edit', $category->id) }}" title="ویرایش"><i class="fa fa-edit"></i></a>--}}
 {{--                    <form action="{{ route('NewsCategory.destroy', $category->id) }}" method="post" class="delete-form">--}}

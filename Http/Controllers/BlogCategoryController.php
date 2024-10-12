@@ -39,8 +39,13 @@ class BlogCategoryController extends Controller
     {
         try {
             $ac = BlogCategory::create([
-                'name' => $request->name,
+                'title' => $request->title,
                 'slug' => $request->slug,
+                'page_title' => $request->page_title,
+                'meta_keywords' => $request->meta_keywords,
+                'meta_description' => $request->meta_description,
+                'canonical' => $request->canonical,
+                'schema' => $request->schema,
                 'banner' => (isset($request->banner)?file_store($request->banner, 'assets/uploads/photos/blog_category_banner/', 'photo_'):null)
             ]);
 
@@ -79,8 +84,13 @@ class BlogCategoryController extends Controller
     public function update(Request $request, BlogCategory $BlogCategory)
     {
         try {
-            $BlogCategory->name = $request->name;
+            $BlogCategory->title = $request->title;
             $BlogCategory->slug = $request->slug;
+            $BlogCategory->page_title = $request->page_title;
+            $BlogCategory->meta_keywords = $request->meta_keywords;
+            $BlogCategory->meta_description = $request->meta_description;
+            $BlogCategory->canonical = $request->canonical;
+            $BlogCategory->schema = $request->schema;
 
             if (isset($request->banner)) {
                 if ($BlogCategory->banner){

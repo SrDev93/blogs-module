@@ -38,16 +38,18 @@ class TagController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:tags',
+            'title' => 'required|unique:tags',
             'slug' => 'required|unique:tags'
         ]);
         try {
             $tag = Tag::create([
-                'name' => $request->name,
+                'title' => $request->title,
                 'slug' => $request->slug,
                 'page_title' => $request->page_title,
                 'meta_keywords' => $request->meta_keywords,
                 'meta_description' => $request->meta_description,
+                'canonical' => $request->canonical,
+                'schema' => $request->schema,
                 'banner' => (isset($request->banner)?file_store($request->banner, 'assets/uploads/photos/tag_banners/', 'photo_'):null),
             ]);
 
@@ -86,11 +88,13 @@ class TagController extends Controller
     public function update(Request $request, Tag $tag)
     {
         try {
-            $tag->name = $request->name;
+            $tag->title = $request->title;
             $tag->slug = $request->slug;
             $tag->page_title = $request->page_title;
             $tag->meta_keywords = $request->meta_keywords;
             $tag->meta_description = $request->meta_description;
+            $tag->canonical = $request->canonical;
+            $tag->schema = $request->schema;
 
             if (isset($request->banner)) {
                 if ($tag->banner){

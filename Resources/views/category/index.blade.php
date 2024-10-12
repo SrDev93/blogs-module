@@ -22,7 +22,7 @@
                                 <ol class="dd-list">
                                     @foreach($categories as $category)
                                         <li class="dd-item" draggable="true" data-id="{{ $category->id }}">
-                                            <div class="dd-handle">{{ $category->name }}</div>
+                                            <div class="dd-handle">{{ $category->title }}</div>
                                             <div class="btn-inline">
                                                 <a class="btn btn-primary" href="{{ route('BlogCategory.edit', $category->id) }}" title="ویرایش"><i class="fa fa-edit"></i></a>
                                                 <form action="{{ route('BlogCategory.destroy', $category->id) }}" method="post" class="delete-form">

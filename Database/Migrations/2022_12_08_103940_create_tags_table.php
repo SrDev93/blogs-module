@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('banner')->nullable();
+            $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->string('page_title')->nullable();
-            $table->string('meta_keywords', 1024)->nullable();
-            $table->string('meta_description', 1024)->nullable();
-            $table->string('banner')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->string('meta_description', 512)->nullable();
+            $table->string('canonical', 512)->nullable();
+            $table->text('schema')->nullable();
             $table->timestamps();
         });
     }
