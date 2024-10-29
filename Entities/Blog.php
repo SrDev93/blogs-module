@@ -25,7 +25,7 @@ class Blog extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function comment()
+    public function comments()
     {
         return $this->morphMany(Comment::class, 'comments')->where('status', 1)->whereNull('parent_id');
     }
